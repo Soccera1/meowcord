@@ -4,7 +4,7 @@ This is the task queue for admin, app, compatibility, reliability and performanc
 
 P0 means a reported crash, trapped flow or broken core interaction. P1 means active completeness, reliability or measured performance work. P2 means polish and consolidation. Task IDs stay the same when priorities change.
 
-PostgreSQL and SQLite backend selection is implemented. Database schema changes must include equivalent migrations for both backends, with fresh-database verification.
+PostgreSQL and SQLite backend selection and offline transfers in both directions are implemented. `bun run db:transfer` requires a new destination, validates all copied tables and rolls back failed transfers. See [databases.md](../self-hosting/databases.md). Database schema changes must include equivalent migrations for both backends, with fresh-database verification.
 
 ## Modal layering and dismissal (P0)
 

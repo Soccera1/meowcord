@@ -43,7 +43,8 @@
     "generate:openapi": "bun scripts/openapi.js",
     "apply:migrations": "bun dist/apply-migrations.js",
     "dev:setup": "scripts/dev/worktree-setup.sh",
-    "release:pack": "bun scripts/release.js"
+    "release:pack": "bun scripts/release.js",
+    "db:transfer": "bun scripts/ops/database-transfer.mjs"
   },
   "dependencies": {
     "@cap.js/wasm": "0.0.8",
@@ -145,5 +146,8 @@
     "cbor-extract",
     "sharp",
     "esbuild"
-  ]
+  ],
+  "engines": {
+    "bun": ">=1.4.0"
+  }
 }

@@ -57,7 +57,7 @@ COPY --chown=bun:bun assets assets
 COPY --from=build --chown=bun:bun /app/assets/vencord assets/vencord
 COPY client/release.json client/release.json
 COPY scripts/client-release.js scripts/client.js scripts/e2ee-anchors.js scripts/clan-badges.js scripts/compress-client.js scripts/docker-configure.js scripts/
-COPY scripts/ops/operator.mjs scripts/ops/operator.mjs
+COPY scripts/ops/operator.mjs scripts/ops/database-transfer.mjs scripts/ops/
 COPY docker/entrypoint.sh docker/
 ARG REVISION=""
 ARG REVISION_TIME="0"

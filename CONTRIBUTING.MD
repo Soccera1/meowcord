@@ -59,6 +59,7 @@ bun scripts/ops/operator.mjs grant <account-id>
 | `bun run build:src`                                  | Deletes `dist`, compiles `src` into it with `tsc` and draws the default avatars.                                                                                                                                                     |
 | `bun run build`                                      | `build:src`, then regenerates `assets/schemas.json` and `assets/openapi.json`.                                                                                                                              |
 | `bun run build:equicord`                              | Rebuilds `assets/vencord` after a change to `client/plugins`, `client/equicord-patches` or `client/vencord.json`.                                                                                            |
+| `bun run db:transfer --offline <source-env-name> <destination-env-name>` | Copies a stopped instance between SQLite and PostgreSQL into a new destination, with content and foreign key verification. See [databases.md](docs/self-hosting/databases.md). |
 | `bun run build:e2ee`                                 | Bundles `client/e2ee` into `assets/public/e2ee`.                                                                                                                                                            |
 | `bun run lint`, `bun run format` | Lints with Biome, or rewrites files in Biome's format. |
 | `bun run test` | Runs the unit tests in `scripts/tests`, `scripts/dev` and `dist`. Build first, because the tests load the compiled code from `dist`. |
@@ -92,6 +93,8 @@ CHROME_PATH="/Applications/Brave Browser.app/Contents/MacOS/Brave Browser" PORT=
 [docs/self-hosting/deploy.md](docs/self-hosting/deploy.md) covers production. `docker-compose.yml` runs PostgreSQL, the server, the SFU and Caddy for TLS on one Linux host, and a one-shot service downloads the web client into a volume on the first start. The same guide covers updating, backups, the phone layout and running behind your own proxy.
 
 `bun test scripts/tests/sqlite-database.test.cjs` verifies fresh SQLite migrations, persistence, exact IDs, rollback, rate limit admission and encryption mutation serialization on its own temporary file.
+
+`DATABASE_TEST_ADMIN_URL=postgres://user:password@localhost/postgres bun test scripts/tests/database-transfer.test.cjs` tests transfers in both directions and rollback on its own randomly named databases and temporary files. The role must be able to create and drop test databases. CLI validation runs without PostgreSQL.
 
 Readiness verification runs with `READINESS_TEST_DATABASE=postgres://localhost/postgres bun test scripts/tests/readiness.test.cjs`. It performs only `SELECT 1` and interrupts its own TCP proxy to verify HTTP 200, 503 and recovery. It does not stop PostgreSQL or modify database rows.
 
